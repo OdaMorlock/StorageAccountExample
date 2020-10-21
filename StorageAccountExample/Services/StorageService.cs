@@ -104,26 +104,26 @@ namespace StorageAccountExample.Services
             {
                 if (!Directory.Exists(Path.GetDirectoryName(downloadPath)))
                 {
+
                     Directory.CreateDirectory(Path.GetDirectoryName(downloadPath));
-
-                    BlobDownloadInfo download = await _blobClient.DownloadAsync();
-
-                    using FileStream fileStream = File.OpenWrite(downloadPath);
-
-                    await download.Content.CopyToAsync(fileStream);
-                    fileStream.Close();
-
                     
-
                 }
+                BlobDownloadInfo download = await _blobClient.DownloadAsync();
+
+                using FileStream fileStream = File.OpenWrite(downloadPath);
+
+                await download.Content.CopyToAsync(fileStream);
+
+                fileStream.Close();
+
             }
             catch 
             {
                 Console.WriteLine("DownloadFail");
                 
             }
+
             
-           
            
         }
 
@@ -132,7 +132,7 @@ namespace StorageAccountExample.Services
             try
             {
                 return await File.ReadAllTextAsync(downloadPath);
-                
+
             }
             catch 
             {
